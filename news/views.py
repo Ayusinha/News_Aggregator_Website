@@ -4,10 +4,10 @@ from newsapi import NewsApiClient
 
 def index(request):
     newsapi = NewsApiClient(api_key="141f860e070f4dc4a86c383f9d5604fc")
-    topheadlines=newsapi.get_top_headlines(sources='bbc-news,the-verge,google-news-in,google-news,hacker-news,national-geographic,news24,reuters,techcrunch-cn,the-hindu,the-times-of-india',language='en',page=3)
+    topheadlines=newsapi.get_top_headlines(sources='bbc-news,the-verge,google-news-in,google-news,hacker-news,national-geographic,news24,reuters,techcrunch-cn,the-hindu,the-times-of-india',language='en',page=5)
     
     articles=topheadlines['articles']
-    print(articles)
+    # print(articles)
     desc = []
     news = []
     img = []
@@ -25,6 +25,6 @@ def index(request):
         desc.append(myarticles['description'])
         img.append(myarticles['urlToImage'])
 
-    mylist = zip(news, desc, img)
+    mylist = zip(news, desc, img, auth, pubat, url)
 
     return render(request, 'index.html', context={"mylist":mylist})
