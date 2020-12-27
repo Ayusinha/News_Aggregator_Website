@@ -104,8 +104,9 @@ def search(request):
                 url.append(myarticles['url'])
                 auth.append(myarticles['author'])
                 time = myarticles['publishedAt']
-                temp = str(time.date()) + " @ " + str(time.time())
-                print(temp)
+                # temp = str(time.date()) + " @ " + str(time.time())
+                temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
+                # print(type(time),time,temp)
                 pubat.append(temp)
                 news.append(myarticles['title'])
                 desc.append(myarticles['description'])
