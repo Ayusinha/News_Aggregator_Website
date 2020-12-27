@@ -53,7 +53,8 @@ def get_hashtags(tag):
 # print(all_indian_sources)
 
 def index(request):
-    topheadlines=newsapi.get_top_headlines(sources='google-news-in,the-hindu,the-times-of-india,espn',language='en',page_size=100)
+    page_no = int(request.GET.get('page_no', 1))
+    topheadlines=newsapi.get_top_headlines(sources='google-news-in,the-hindu,the-times-of-india,espn',language='en',page_size=5, page=int(page_no))
     articles=topheadlines['articles']
     # print(articles)
     desc = []
@@ -78,19 +79,20 @@ def index(request):
 
     mylist = zip(news, desc, img, auth, pubat, url)
 
-    return render(request, 'index.html', {"mylist":mylist})
+    return render(request, 'index.html', {"mylist": mylist, "page_no": page_no})
 
 def search(request):
-    if request.method == 'POST':
-        query=request.POST.get('search_for',None)
+    if request.method == 'GET':
+        query=request.GET.get('search_for',None)
 
         if query is None:
             return redirect('')
         else:
+            page_no = int(request.GET.get('page_no', 1))
             # print(encoded)
             # particular_topic = newsapi.get_top_headlines(qintitle='{}'.format(query),country='in',page=1)
             tag =str(query)
-            particular_topic = newsapi.get_everything(qintitle='{}'.format(query),from_param='{}'.format(days_before),to='{}'.format(current_date),sources='google-news-in,the-hindu,the-times-of-india,espn',language='en',sort_by='publishedAt',page_size=50)
+            particular_topic = newsapi.get_everything(qintitle=query,from_param=days_before,to=current_date,sources='google-news-in,the-hindu,the-times-of-india,espn',language='en',sort_by='publishedAt',page_size=5, page=page_no)
             articles=particular_topic['articles']
             # print(query, articles)
             desc = [] 
@@ -114,4 +116,4 @@ def search(request):
 
             mylist = zip(news, desc, img, auth, pubat, url)
             all_tags = get_hashtags(tag)
-            return render(request, 'search.html', {'mylist':mylist , 'query':query, 'data':all_tags})
+            return render(request, 'search.html', {'mylist':mylist , 'query':query, 'data':all_tags, 'page_no': page_no},)
