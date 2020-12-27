@@ -97,9 +97,9 @@
           <h5 class="card-header">Search</h5>
           <div class="card-body">
             <div class="input-group">
-              <form action="/search/" method="POST">
-                {% csrf_token %}
+              <form action="/search/" method="GET">
                 <input type="text" class="form-control" name="search_for" placeholder="Search for...">
+
                 <span class="input-group-append">
                   <button class="btn btn-secondary" type="submit" value="submit">Go!</button>
                 </span>
@@ -150,6 +150,23 @@
 
     </div>
     <!-- /.row -->
+    <nav aria-label="..."  style="margin-left: 26%">
+      <ul class="pagination">
+          {% if page_no is 1 %}
+            <li class="page-item disabled">
+              <a class="page-link" onclick="func(-1, {{page_no}})">Previous</a>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" onclick="func(-1, {{page_no}})">Previous</a>
+            </li>
+          {% endif %}
+
+        <li class="page-item">
+          <a class="page-link" onclick="func(1, {{page_no}})">Next</a>
+        </li>
+      </ul>
+    </nav>
 
   </div>
   <!-- /.container -->
@@ -161,6 +178,13 @@
     </div>
     <!-- /.container -->
   </footer>
+  <script>
+    function func(i, page_no){
+      page_no = Number(page_no)+i
+      console.log(page_no)
+      window.location.href="/?page_no="+page_no;
+    }
+  </script>
 
   <!-- Bootstrap core JavaScript -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
