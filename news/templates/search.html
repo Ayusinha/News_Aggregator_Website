@@ -29,28 +29,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">All
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Sports</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Politics</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Entertainment</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Business</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="/">Go to Home</a>
           </li>
         </ul>
       </div>
@@ -65,8 +45,8 @@
       <!-- Blog Entries Column -->
       <div class="col-md-8">
 
-        <h2 class="my-4">Top Headlines
-          <small>All Categories</small>
+        <h2 class="my-4">
+          <small>Search result for - </small> "{{query}}"
         </h2>
 
         <!-- Blog Post -->
@@ -146,7 +126,18 @@
           </div>
         </div>
 
+         <!-- Side Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Trending Hastags on Twitter related to this search </h5>
+        <div class="card-body">
+          {% for tag in data %}
+              <p class="card-text">{{tag}}</p>
+          {% endfor %}
+        </div>
       </div>
+
+      </div>
+
 
     </div>
     <!-- /.row -->
