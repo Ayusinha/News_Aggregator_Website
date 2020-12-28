@@ -14,4 +14,9 @@ urlpatterns = [
     path('health/', views.health, name='health'),
     path('science/', views.science, name='science'),
     path('technology/', views.technology, name='technology'),
+    path('login/', views.login_user, name='login'),
+    path('signup/', views.signup, name='signup'),
+    path('logout/', views.logout_user, name='logout'),
+    path('bookmark/', views.bookmark, name='bookmark'),
+    path('show_bookmarks/', views.show_bookmarks)
 ]
