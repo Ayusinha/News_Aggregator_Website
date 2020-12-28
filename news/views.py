@@ -2,12 +2,16 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from newsapi import NewsApiClient
 from datetime import date, timedelta
+from django.contrib.auth.models import User, auth
+from django.contrib.auth import authenticate, logout, login
+from .models import Bookmark
+
 import json
 consumer_key= 'NUkOrdTkVSd5AKqKetajGWVaO' #API_KEY(Twitter)
 consumer_secret= 'ZooIHc9DrgVTuTU96XDYGvZF54wavk3aNKWd3fyZLzIGxGgbF6' 
 access_token= '877839641344430080-knj2CUZn4LbZ1O57mgJEbRQ1fVdUODP' 
 access_token_secret= 'mv34QLXYsUab0qgvXOHQWV5dp7vfPuXwFDhcYkFrDl5JJ' 
-APIKEY="141f860e070f4dc4a86c383f9d5604fc" 
+APIKEY="141f860e070f4dc4a86c383f9d5604fc"
 import urllib.parse
 import tweepy as tw
 
@@ -321,3 +325,54 @@ def technology(request):
 
     mylist = zip(news, desc, img, auth, pubat, url)
     return render(request, 'technology.html', {"mylist": mylist, 'page_no': page_no,})
+
+def signup(request):
+    if request.method=='POST':
+        if User.objects.filter(username=request.POST['username']).exists() or User.objects.filter(username=request.POST['username']).exists():
+            print("User already exist")
+            return redirect('/login')
+        else:
+            user = User.objects.create_user(request.POST['username'], request.POST['email'], request.POST['password'])
+            user.save()
+            print("User signup successful")
+            return redirect('/')
+
+    elif request.method=='GET':
+        return render(request, 'signup.html')
+
+def login_user(request):
+    if request.method == 'POST':
+        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        if user is not None:
+            login(request, user)
+            print("Login Success")
+            return redirect('/')
+        else:
+            print("Login Failed")
+            return redirect('/login/')
+    elif request.method=='GET':
+        return render(request, 'login.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')
+
+def bookmark(request):
+    if request.method=='GET':
+        print("===================================== ", request.GET['url'], " ========================================")
+        bmk = Bookmark(username=request.user.username, url=request.GET['url'])
+        bmk.save()
+        print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+        return redirect('/')
+
+def show_bookmarks(request):
+    if request.method=='GET':
+        bmks = Bookmark.objects.filter(username=request.user.username)
+        arr = []
+        for el in bmks:
+            arr.append(el.url)
+        return render(request, "bookmarks.html",{"urls" : arr})
+
+
+
+
