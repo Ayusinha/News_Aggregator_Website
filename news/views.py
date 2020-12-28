@@ -146,7 +146,7 @@ def about(request):
 
 def business(request):
     page_no = int(request.GET.get('page_no', 1))
-    topheadlines_sports=newsapi.get_top_headlines(category='business',country='in,us',language='en',page_size=6, page=page_no)
+    topheadlines_sports=newsapi.get_top_headlines(category='business',country='in',language='en',page_size=6, page=page_no)
     articles=topheadlines_sports['articles']
     # print(len(articles))
     desc = []
