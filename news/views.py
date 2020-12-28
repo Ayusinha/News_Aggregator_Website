@@ -54,7 +54,7 @@ def get_hashtags(tag):
 
 def index(request):
     page_no = int(request.GET.get('page_no', 1))
-    topheadlines=newsapi.get_top_headlines(sources='google-news-in,the-hindu,the-times-of-india,espn',language='en',page_size=5, page=int(page_no))
+    topheadlines=newsapi.get_top_headlines(sources='google-news-in,the-hindu,the-times-of-india,espn',language='en',page_size=6, page=int(page_no))
     articles=topheadlines['articles']
     # print(articles)
     desc = []
@@ -69,9 +69,7 @@ def index(request):
         url.append(myarticles['url'])
         auth.append(myarticles['author'])
         time = myarticles['publishedAt']
-        # temp = str(time.date()) + " @ " + str(time.time())
         temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
-        # print(type(time),time,temp)
         pubat.append(temp)
         news.append(myarticles['title'])
         desc.append(myarticles['description'])
@@ -89,12 +87,9 @@ def search(request):
             return redirect('')
         else:
             page_no = int(request.GET.get('page_no', 1))
-            # print(encoded)
-            # particular_topic = newsapi.get_top_headlines(qintitle='{}'.format(query),country='in',page=1)
             tag =str(query)
-            particular_topic = newsapi.get_everything(qintitle=query,from_param=days_before,to=current_date,sources='google-news-in,the-hindu,the-times-of-india,espn',language='en',sort_by='publishedAt',page_size=5, page=page_no)
+            particular_topic = newsapi.get_everything(qintitle=query,from_param=days_before,to=current_date,sources='google-news-in,the-hindu,the-times-of-india,espn',language='en',sort_by='publishedAt',page_size=6, page=page_no)
             articles=particular_topic['articles']
-            # print(query, articles)
             desc = [] 
             news = [] 
             img = [] 
@@ -106,9 +101,7 @@ def search(request):
                 url.append(myarticles['url'])
                 auth.append(myarticles['author'])
                 time = myarticles['publishedAt']
-                # temp = str(time.date()) + " @ " + str(time.time())
                 temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
-                # print(type(time),time,temp)
                 pubat.append(temp)
                 news.append(myarticles['title'])
                 desc.append(myarticles['description'])
@@ -117,3 +110,30 @@ def search(request):
             mylist = zip(news, desc, img, auth, pubat, url)
             all_tags = get_hashtags(tag)
             return render(request, 'search.html', {'mylist':mylist , 'query':query, 'data':all_tags, 'page_no': page_no},)
+
+def sports(request):
+    page_no = int(request.GET.get('page_no', 1))
+    topheadlines_sports=newsapi.get_top_headlines(category='sports',country='in',language='en',page_size=6, page=page_no)
+    articles=topheadlines_sports['articles']
+    # print(len(articles))
+    desc = []
+    news = []
+    img = []
+    auth = []
+    pubat = []
+    url = []
+
+    for i in range(len(articles)):
+        myarticles = articles[i]
+        url.append(myarticles['url'])
+        auth.append(myarticles['author'])
+        time = myarticles['publishedAt']
+        temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
+        pubat.append(temp)
+        news.append(myarticles['title'])
+        desc.append(myarticles['description'])
+        img.append(myarticles['urlToImage'])    
+
+    mylist = zip(news, desc, img, auth, pubat, url)
+    all_tags = get_hashtags('sports')
+    return render(request, 'sports.html', {"mylist": mylist, 'page_no': page_no, 'data':all_tags})
