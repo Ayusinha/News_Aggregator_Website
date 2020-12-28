@@ -41,7 +41,7 @@
         <!-- Blog Entries Column -->
         <div class="col-md-8">
           <h2 class="my-4">Top Headlines
-            <small>Sports</small>
+            <small>Global</small>
           </h2>
           <!-- Blog Post -->
           <div class="container"> 
@@ -80,7 +80,19 @@
                 </form>
                 </div>
             </div>
-          </div>
+            </div>
+
+            <!-- Side Widget -->
+        <div class="card my-4">
+            <h5 class="card-header">Trending Hastags on Twitter related to this search </h5>
+            <div class="card-body">
+            {% for tag in data %}
+                <p class="card-text">{{tag}}</p>
+            {% endfor %}
+            </div>
+        </div>
+
+
       </div>
 
 
@@ -103,7 +115,6 @@
         </ul>
       </nav>
 
-    </div>
     </div>
     <!-- /.container -->
 

@@ -135,5 +135,189 @@ def sports(request):
         img.append(myarticles['urlToImage'])    
 
     mylist = zip(news, desc, img, auth, pubat, url)
-    all_tags = get_hashtags('sports')
-    return render(request, 'sports.html', {"mylist": mylist, 'page_no': page_no, 'data':all_tags})
+    return render(request, 'sports.html', {"mylist": mylist, 'page_no': page_no,})
+
+def about(request):
+    return render(request, 'about.html')
+
+def business(request):
+    page_no = int(request.GET.get('page_no', 1))
+    topheadlines_sports=newsapi.get_top_headlines(category='business',country='in,us',language='en',page_size=6, page=page_no)
+    articles=topheadlines_sports['articles']
+    # print(len(articles))
+    desc = []
+    news = []
+    img = []
+    auth = []
+    pubat = []
+    url = []
+
+    for i in range(len(articles)):
+        myarticles = articles[i]
+        url.append(myarticles['url'])
+        auth.append(myarticles['author'])
+        time = myarticles['publishedAt']
+        temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
+        pubat.append(temp)
+        news.append(myarticles['title'])
+        desc.append(myarticles['description'])
+        img.append(myarticles['urlToImage'])    
+
+    mylist = zip(news, desc, img, auth, pubat, url)
+    return render(request, 'business.html', {"mylist": mylist, 'page_no': page_no,})
+
+def entertainment(request):
+    page_no = int(request.GET.get('page_no', 1))
+    topheadlines_sports=newsapi.get_top_headlines(category='entertainment',country='in',language='en',page_size=6, page=page_no)
+    articles=topheadlines_sports['articles']
+    # print(len(articles))
+    desc = []
+    news = []
+    img = []
+    auth = []
+    pubat = []
+    url = []
+
+    for i in range(len(articles)):
+        myarticles = articles[i]
+        url.append(myarticles['url'])
+        auth.append(myarticles['author'])
+        time = myarticles['publishedAt']
+        temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
+        pubat.append(temp)
+        news.append(myarticles['title'])
+        desc.append(myarticles['description'])
+        img.append(myarticles['urlToImage'])    
+
+    mylist = zip(news, desc, img, auth, pubat, url)
+    return render(request, 'entertainment.html', {"mylist": mylist, 'page_no': page_no,})
+
+def general(request):
+    page_no = int(request.GET.get('page_no', 1))
+    topheadlines_sports=newsapi.get_top_headlines(category='general',country='in',language='en',page_size=6, page=page_no)
+    articles=topheadlines_sports['articles']
+    # print(len(articles))
+    desc = []
+    news = []
+    img = []
+    auth = []
+    pubat = []
+    url = []
+
+    for i in range(len(articles)):
+        myarticles = articles[i]
+        url.append(myarticles['url'])
+        auth.append(myarticles['author'])
+        time = myarticles['publishedAt']
+        temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
+        pubat.append(temp)
+        news.append(myarticles['title'])
+        desc.append(myarticles['description'])
+        img.append(myarticles['urlToImage'])    
+
+    mylist = zip(news, desc, img, auth, pubat, url)
+    return render(request, 'general.html', {"mylist": mylist, 'page_no': page_no,})
+
+def globoal(request):
+    page_no = int(request.GET.get('page_no', 1))
+    topheadlines_sports=newsapi.get_top_headlines(category='global',language='en',page_size=6, page=page_no)
+    articles=topheadlines_sports['articles']
+    # print(len(articles))
+    desc = []
+    news = []
+    img = []
+    auth = []
+    pubat = []
+    url = []
+
+    for i in range(len(articles)):
+        myarticles = articles[i]
+        url.append(myarticles['url'])
+        auth.append(myarticles['author'])
+        time = myarticles['publishedAt']
+        temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
+        pubat.append(temp)
+        news.append(myarticles['title'])
+        desc.append(myarticles['description'])
+        img.append(myarticles['urlToImage'])    
+
+    mylist = zip(news, desc, img, auth, pubat, url)
+    return render(request, 'global.html', {"mylist": mylist, 'page_no': page_no,})
+
+def health(request):
+    page_no = int(request.GET.get('page_no', 1))
+    topheadlines_sports=newsapi.get_top_headlines(category='health',language='en',page_size=6, page=page_no)
+    articles=topheadlines_sports['articles']
+    # print(len(articles))
+    desc = []
+    news = []
+    img = []
+    auth = []
+    pubat = []
+    url = []
+
+    for i in range(len(articles)):
+        myarticles = articles[i]
+        url.append(myarticles['url'])
+        auth.append(myarticles['author'])
+        time = myarticles['publishedAt']
+        temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
+        pubat.append(temp)
+        news.append(myarticles['title'])
+        desc.append(myarticles['description'])
+        img.append(myarticles['urlToImage'])    
+
+    mylist = zip(news, desc, img, auth, pubat, url)
+    return render(request, 'health.html', {"mylist": mylist, 'page_no': page_no,})
+
+def science(request):
+    page_no = int(request.GET.get('page_no', 1))
+    topheadlines_sports=newsapi.get_top_headlines(category='science',language='en',page_size=6, page=page_no)
+    articles=topheadlines_sports['articles']
+    # print(len(articles))
+    desc = []
+    news = []
+    img = []
+    auth = []
+    pubat = []
+    url = []
+
+    for i in range(len(articles)):
+        myarticles = articles[i]
+        url.append(myarticles['url'])
+        auth.append(myarticles['author'])
+        time = myarticles['publishedAt']
+        temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
+        pubat.append(temp)
+        news.append(myarticles['title'])
+        desc.append(myarticles['description'])
+        img.append(myarticles['urlToImage'])    
+
+    mylist = zip(news, desc, img, auth, pubat, url)
+    return render(request, 'science.html', {"mylist": mylist, 'page_no': page_no,})
+
+def technology(request):
+    page_no = int(request.GET.get('page_no', 1))
+    topheadlines_sports=newsapi.get_top_headlines(category='technology',language='en',page_size=6, page=page_no)
+    articles=topheadlines_sports['articles']
+    # print(len(articles))
+    desc = []
+    news = []
+    img = []
+    auth = []
+    pubat = []
+    url = []
+
+    for i in range(len(articles)):
+        myarticles = articles[i]
+        url.append(myarticles['url'])
+        auth.append(myarticles['author'])
+        time = myarticles['publishedAt']
+        temp= time[8:10]+'-'+time[5:7]+'-'+time[:4] + " @ " + time[11:19]
+        pubat.append(temp)
+        news.append(myarticles['title'])
+        desc.append(myarticles['description'])
+        img.append(myarticles['urlToImage'])    
+
+    mylist = zip(news, desc, img, auth, pubat, url)
+    return render(request, 'technology.html', {"mylist": mylist, 'page_no': page_no,})
